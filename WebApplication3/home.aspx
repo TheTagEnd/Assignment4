@@ -18,6 +18,8 @@
           <li class="nav-item">
             <div class="form-group">
               <form id="home" runat="server">
+        <asp:Button ID="Askquestion" runat="server" Text="Ask Question" CssClass="btn btn-warning" OnClick="askquestion_Click" />
+
 <asp:Label ID="Username" runat="server" Text="Username"></asp:Label>
                 <asp:Button ID="logoutButton" runat="server" Text="Logout" CssClass="btn btn-primary" OnClick="loginOut_Click" />
               </form>

@@ -45,5 +45,10 @@ namespace WebApplication3
         {
             Response.Redirect("~/userlist.aspx");
         }
+
+        protected void postquestion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/ask_question.aspx");
+        }
     }
 }

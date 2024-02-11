@@ -104,6 +104,7 @@
   <ItemGroup>
     <Content Include="answer.aspx" />
     <Content Include="answer_admin.aspx" />
+    <Content Include="ask_question.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -206,6 +207,13 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ask_question.aspx.cs">
+      <DependentUpon>ask_question.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ask_question.aspx.designer.cs">
+      <DependentUpon>ask_question.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
