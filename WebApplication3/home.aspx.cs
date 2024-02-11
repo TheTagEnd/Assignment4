@@ -11,15 +11,18 @@ namespace WebApplication3
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["User"] == "Admin")
-            {
-                Response.Redirect("~/home_admin.aspx");
-            }
             if (Session["User"] == null)
             {
                 Response.Redirect("~/Default.aspx");
+                return;
+            }
+            else if (Session["User"].ToString() == "Admin")
+            {
+                Response.Redirect("~/home_admin.aspx");
+                return;
             }
 
+            Username.Text = Session["UserName"].ToString();
         }
         protected void loginOut_Click(object sender, EventArgs e)
         {
@@ -33,7 +36,6 @@ namespace WebApplication3
 
         protected void likeQuestion(object sender, EventArgs e)
         {
-            
             // Update like count in server-side data store or logic here
             // Display updated like count to user using appropriate methods
         }

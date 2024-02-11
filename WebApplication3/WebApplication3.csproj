@@ -204,6 +204,7 @@
     <Compile Include="answer_admin.aspx.designer.cs">
       <DependentUpon>answer_admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="api\Api.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Default.aspx.cs">
@@ -230,6 +231,8 @@
     <Compile Include="home_admin.aspx.designer.cs">
       <DependentUpon>home_admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="models\Question.cs" />
+    <Compile Include="models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="signup.aspx.cs">
       <DependentUpon>signup.aspx</DependentUpon>
