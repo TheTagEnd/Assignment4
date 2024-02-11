@@ -45,6 +45,11 @@ namespace WebApplication3
             // Update dislike count in server-side data store or logic here
             // Display updated dislike count to user using appropriate methods
         }
+        protected void askquestion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/ask_question.aspx");
+        }
+
 
     }
 
