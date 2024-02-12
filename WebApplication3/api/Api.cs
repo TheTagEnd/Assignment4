@@ -9,7 +9,7 @@ namespace WebApplication3.api {
         static SqlConnection connection = null;
 
         public static void connect() {
-            string connectionStr = @"Data Source=PC\SQLEXPRESS;Database=Forum;Integrated Security=True;";
+            string connectionStr = @"Data Source=BHAVYA_GARG\SQLEXPRESS;Database=Forum;Integrated Security=True;";
             connection = new SqlConnection(connectionStr);
             connection.Open();
         }

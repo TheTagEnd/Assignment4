@@ -37,8 +37,9 @@ namespace WebApplication3
         {
             Response.Redirect("~/answer.aspx?ques=" + e.CommandArgument);
         }
-        
-        protected void LikeQuestion(Object sender, CommandEventArgs e) {
+
+        protected void LikeQuestion(Object sender, CommandEventArgs e)
+        {
             var btn = sender as LinkButton;
             var countEl = btn.FindControl("likeCount") as HtmlGenericControl;
             countEl.InnerText = (int.Parse(countEl.InnerText) + 1).ToString();

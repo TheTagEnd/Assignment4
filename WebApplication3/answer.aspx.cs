@@ -26,6 +26,7 @@ namespace WebApplication3
         protected void SubmitAnswer(object sender, EventArgs e) {
             int quesId = int.Parse(Request.Params.Get("ques") ?? "-1");
             api.Api.AddAnswer(int.Parse(Session["User"].ToString()), answerContent.Text.Trim(), quesId);
+            Response.RedirectPermanent(Request.Url.ToString());
         }
         protected void LikeAnswer(object sender, CommandEventArgs e) {
             var btn = sender as LinkButton;

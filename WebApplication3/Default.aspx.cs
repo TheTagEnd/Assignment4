@@ -14,6 +14,7 @@ namespace WebApplication3
                 Response.Redirect("~/home_admin.aspx");
             else 
                 Response.Redirect("~/Home.aspx");
+            var questions = api.Api.GetQuestions();
             
         }
 
