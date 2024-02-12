@@ -7,11 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplication3
-{
+namespace WebApplication3 {
 
 
-    public partial class userlist
-    {
+    public partial class userlist {
+
+        /// <summary>
+        /// usersRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater usersRepeater;
     }
 }

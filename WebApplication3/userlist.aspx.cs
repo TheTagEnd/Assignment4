@@ -11,7 +11,14 @@ namespace WebApplication3
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            var users = api.Api.GetUsers();
+            usersRepeater.DataSource = users;
+            usersRepeater.DataBind();
+        }
 
+        protected void DeleteUser(object sender, CommandEventArgs e) {
+            api.Api.DeleteUser(int.Parse(e.CommandArgument.ToString()));
+            Response.Redirect(Request.Url.ToString());
         }
     }
 }

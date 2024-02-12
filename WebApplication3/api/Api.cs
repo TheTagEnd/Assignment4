@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using WebApplication3.models;
 namespace WebApplication3.api
@@ -12,7 +13,7 @@ namespace WebApplication3.api
 
         public static void connect()
         {
-            string connectionStr = @"Data Source=BHAVYA_GARG\SQLEXPRESS;Database=Forum;Integrated Security=True;";
+            string connectionStr = @"Data Source=PC\SQLEXPRESS;Database=Forum;Integrated Security=True;";
             connection = new SqlConnection(connectionStr);
             connection.Open();
         }
@@ -53,6 +54,20 @@ namespace WebApplication3.api
             }
             rd.Close();
             return user;
+        }
+
+        public static List<models.User> GetUsers()
+        {
+            var users = new List<models.User>();
+            string query = String.Format("select * from Users");
+            var cmd = new SqlCommand(@query, connection);
+            var rd = cmd.ExecuteReader();
+            while(rd.Read())
+            {
+                users.Add(new models.User(rd["userName"].ToString(), int.Parse(rd["userId"].ToString())));
+            }
+            rd.Close();
+            return users;
         }
 
         public static models.User GetUser(string username)
@@ -181,6 +196,22 @@ namespace WebApplication3.api
             answer = answer.Trim();
             string query = String.Format("INSERT INTO Answers(userId, anscontent, likes, dislikes, quesId) VALUES ({0}, '{1}', {2}, {3}, {4});", userId, answer, 0, 0, quesId);
             ExecuteQuery(query);
+        }
+
+        public static void DeleteUser(int userId)
+        {
+            string query = String.Format("select * from Questions where userId={0}", userId); 
+            var cmd = new SqlCommand(query, connection);
+            var rd = cmd.ExecuteReader();
+            var quesIds = new List<int>();
+            while (rd.Read()) {
+                quesIds.Add(int.Parse(rd["quesId"].ToString()));
+            }
+            rd.Close();
+            foreach(var quesId in quesIds) DeleteQuestion(quesId);
+            query = String.Format("DELETE FROM Users WHERE userID={0};", userId);
+            cmd = new SqlCommand(@query, connection);
+            cmd.ExecuteNonQuery();
         }
 
         public static void DeleteAnswers(int quesId)
