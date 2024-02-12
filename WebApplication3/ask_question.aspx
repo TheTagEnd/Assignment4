@@ -65,7 +65,6 @@
           <li class="nav-item">
             <div class="form-group">
                              <asp:Button ID="goback" runat="server" Text="Go Back" OnClick="Back_Click" CssClass="btn btn-danger" />
-
             </div>
           </li>
         </ul>
@@ -79,14 +78,12 @@
 
         <div class="ask-question-area">
             <h2 class="ask-question-heading">Ask Your Question</h2>
-           
                 <div class="form-group">
                     <label for="questionText" class="form-label">Enter your question:</label>
                     <asp:TextBox ID="questionText" runat="server" TextMode="MultiLine" Rows="5" Columns="40" CssClass="form-control question-textbox" placeholder="Enter your question here"></asp:TextBox>
                     <asp:Label ID="validationError" runat="server" Text="" CssClass="validation-error"></asp:Label>
                 </div>
                 <asp:Button ID="submitQuestion" runat="server" Text="Post Question" OnClick="submitQuestion_Click" CssClass="btn submit-button" />
-            
         </div>
     </main>
 

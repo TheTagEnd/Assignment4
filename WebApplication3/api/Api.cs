@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using WebApplication3.models;
-
 namespace WebApplication3.api {
     public class Api {
         static SqlConnection connection = null;
@@ -59,12 +58,45 @@ namespace WebApplication3.api {
             return user;
         }
 
+        public static void IncrementQuesLikes(int quesId) {
+            string query = String.Format("UPDATE Questions SET likes=likes+1 WHERE quesID={0};", quesId);
+            var cmd = new SqlCommand(@query, connection); 
+            cmd.ExecuteNonQuery();
+        }
+
+        public static void IncrementAnsLikes(int ansId, int newLikes)
+        {
+            string query = String.Format("UPDATE Answers SET likes={0} WHERE quesID={1};", newLikes, ansId);
+            var cmd = new SqlCommand(@query, connection);
+            cmd.ExecuteNonQuery();
+        }
+
+        public static void IncrementQuesDislikes(int quesId)
+        {
+            string query = String.Format("UPDATE Questions SET dislikes=dislikes+1 WHERE quesID={0};", quesId);
+            var cmd = new SqlCommand(@query, connection);
+            cmd.ExecuteNonQuery();
+        }
+
+        public static void IncrementAnsDislikes(int ansId, int newdislikes) {
+            string query = String.Format("UPDATE Questions SET dislikes={0} WHERE quesID={1};", newdislikes, ansId);
+            var cmd = new SqlCommand(@query, connection);
+            cmd.ExecuteNonQuery();
+        }
+
+
         private static void ExecuteQuery(string query) {
             var cmd = new SqlCommand(@query, connection);
             cmd.ExecuteNonQuery();
         }
 
-        private static List<models.Question> GetQuestions() {
+        public static void AddQuestion(int userId, string question) {
+            question = question.Trim();
+            string query = String.Format("INSERT INTO Questions(userId, quescontent, likes, dislikes) VALUES ({0}, '{1}', {2}, {3});", userId, question, 0, 0);
+            ExecuteQuery(query);
+        }   
+
+        public static List<Question> GetQuestions() {
             List<models.Question> questions = new List<models.Question>();
             string query = "select * from Questions";
             var cmd = new SqlCommand(@query, connection); 
@@ -72,6 +104,7 @@ namespace WebApplication3.api {
             while (rd.Read()) {
                 questions.Add(GetQuestion(rd));
             }
+            rd.Close();
             return questions;
         }
 
@@ -80,7 +113,7 @@ namespace WebApplication3.api {
             question.Id = int.Parse(rd["quesId"].ToString());
             question.Likes = int.Parse(rd["likes"].ToString());
             question.Dislikes = int.Parse(rd["dislikes"].ToString());
-            question.Id = int.Parse(rd["userId"].ToString());
+            question.UserId = int.Parse(rd["userId"].ToString());
             question.Content = rd["quesContent"].ToString();
             return question;
         }

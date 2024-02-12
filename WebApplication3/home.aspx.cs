@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace WebApplication3
@@ -23,27 +24,35 @@ namespace WebApplication3
             }
 
             Username.Text = Session["UserName"].ToString();
+            var ques = api.Api.GetQuestions();
+            questionsRepeater.DataSource = ques;
+            questionsRepeater.DataBind();
         }
         protected void loginOut_Click(object sender, EventArgs e)
         {
             Session.Abandon();
             Response.Redirect("~/Default.aspx");
         }
-        protected void gotoanswer(object sender, EventArgs e)
+        protected void GotoAnswer(object sender, EventArgs e)
         {
             Response.Redirect("~/answer.aspx");
         }
-
-        protected void likeQuestion(object sender, EventArgs e)
-        {
-            // Update like count in server-side data store or logic here
-            // Display updated like count to user using appropriate methods
+        
+        protected void LikeQuestion(Object sender, CommandEventArgs e) {
+            var btn = sender as LinkButton;
+            var countEl = btn.FindControl("likeCount") as HtmlGenericControl;
+            countEl.InnerText = (int.Parse(countEl.InnerText) + 1).ToString();
+            var id = int.Parse(e.CommandArgument.ToString());
+            api.Api.IncrementQuesLikes(id);
         }
 
-        protected void dislikeQuestion(object sender, EventArgs e)
+        protected void DislikeQuestion(object sender, CommandEventArgs e)
         {
-            // Update dislike count in server-side data store or logic here
-            // Display updated dislike count to user using appropriate methods
+            var btn = sender as LinkButton;
+            var countEl = btn.FindControl("dislikeCount") as HtmlGenericControl;
+            countEl.InnerText = (int.Parse(countEl.InnerText) + 1).ToString();
+            var id = int.Parse(e.CommandArgument.ToString());
+            api.Api.IncrementQuesDislikes(id);
         }
         protected void askquestion_Click(object sender, EventArgs e)
         {

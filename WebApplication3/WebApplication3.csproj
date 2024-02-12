@@ -215,6 +215,7 @@
     <Compile Include="ask_question.aspx.designer.cs">
       <DependentUpon>ask_question.aspx</DependentUpon>
     </Compile>
+    <Compile Include="components\question.component.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -26,10 +26,9 @@ namespace WebApplication3
                 return;
             }
 
-            // Handle question submission on the server-side (e.g., store in database, send to service)
-            // ...
 
-            // Optionally clear the textbox and validation message after successful submission
+            api.Api.AddQuestion(int.Parse(Session["User"].ToString()),question);
+
             bool added = true; 
             if(added)
             {

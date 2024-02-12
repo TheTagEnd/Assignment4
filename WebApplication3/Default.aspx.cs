@@ -9,15 +9,12 @@ namespace WebApplication3
 {
     public partial class _Default : Page {
         protected void Page_Load(object sender, EventArgs e) {
-            if (Session["User"] == null) {
-                return;
-            } 
-            else if (Session["User"].ToString() == "Admin") {
+            if (Session["User"] == null) return;
+            else if (Session["User"].ToString() == "Admin") 
                 Response.Redirect("~/home_admin.aspx");
-            }
-            else {
+            else 
                 Response.Redirect("~/Home.aspx");
-            }
+            
         }
 
         protected void signupButton_Click(object sender, EventArgs e) {
