@@ -33,9 +33,9 @@ namespace WebApplication3
             Session.Abandon();
             Response.Redirect("~/Default.aspx");
         }
-        protected void GotoAnswer(object sender, EventArgs e)
+        protected void GotoAnswer(object sender, CommandEventArgs e)
         {
-            Response.Redirect("~/answer.aspx");
+            Response.Redirect("~/answer.aspx?ques=" + e.CommandArgument);
         }
         
         protected void LikeQuestion(Object sender, CommandEventArgs e) {

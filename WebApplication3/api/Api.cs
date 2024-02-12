@@ -64,9 +64,9 @@ namespace WebApplication3.api {
             cmd.ExecuteNonQuery();
         }
 
-        public static void IncrementAnsLikes(int ansId, int newLikes)
+        public static void IncrementAnsLikes(int ansId)
         {
-            string query = String.Format("UPDATE Answers SET likes={0} WHERE quesID={1};", newLikes, ansId);
+            string query = String.Format("UPDATE Answers SET likes=likes+1 WHERE ansID={0};", ansId);
             var cmd = new SqlCommand(@query, connection);
             cmd.ExecuteNonQuery();
         }
@@ -78,8 +78,8 @@ namespace WebApplication3.api {
             cmd.ExecuteNonQuery();
         }
 
-        public static void IncrementAnsDislikes(int ansId, int newdislikes) {
-            string query = String.Format("UPDATE Questions SET dislikes={0} WHERE quesID={1};", newdislikes, ansId);
+        public static void IncrementAnsDislikes(int ansId) {
+            string query = String.Format("UPDATE Answers SET dislikes=dislikes+1 WHERE ansID={0};", ansId);
             var cmd = new SqlCommand(@query, connection);
             cmd.ExecuteNonQuery();
         }
@@ -108,6 +108,20 @@ namespace WebApplication3.api {
             return questions;
         }
 
+        public static models.Question GetQuestionById(int quesId)
+        {
+            models.Question question = new Question();
+            string query = string.Format("select * from Questions WHERE quesId = {0}",quesId);
+            var cmd = new SqlCommand(query, connection);
+            var rd = cmd.ExecuteReader();
+            if(rd.Read())
+            {
+                question = GetQuestion(rd);
+            }
+            rd.Close();
+            return question;
+        }
+
         private static models.Question GetQuestion(SqlDataReader rd) {
             models.Question question = new Question();
             question.Id = int.Parse(rd["quesId"].ToString());
@@ -117,5 +131,37 @@ namespace WebApplication3.api {
             question.Content = rd["quesContent"].ToString();
             return question;
         }
+
+        public static List<Answer> GetAnswers(int quesId) {
+            var answers = new List<models.Answer>();
+            string query = string.Format("select * from Answers where quesId={0}", quesId);
+            var cmd = new SqlCommand(@query, connection); 
+            var rd = cmd.ExecuteReader();
+            while (rd.Read()) {
+                answers.Add(GetAnswer(rd));
+            }
+            rd.Close();
+            return answers;
+        }
+
+        private static models.Answer GetAnswer(SqlDataReader rd) {
+            models.Answer answer = new Answer();
+            answer.Id = int.Parse(rd["ansId"].ToString());
+            answer.Likes = int.Parse(rd["likes"].ToString());
+            answer.Dislikes = int.Parse(rd["dislikes"].ToString());
+            answer.UserId = int.Parse(rd["userId"].ToString());
+            answer.Content = rd["ansContent"].ToString();
+            answer.quesId = int.Parse(rd["quesId"].ToString());
+            return answer;
+        }
+
+        public static void AddAnswer(int userId, string answer, int quesId)
+        {
+            answer = answer.Trim();
+            string query = String.Format("INSERT INTO Answers(userId, anscontent, likes, dislikes, quesId) VALUES ({0}, '{1}', {2}, {3}, {4});", userId, answer, 0, 0,quesId);
+            ExecuteQuery(query);
+        }
+
+       
     }
 }

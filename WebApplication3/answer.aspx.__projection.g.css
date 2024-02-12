@@ -1,0 +1,27 @@
+
+/* BEGIN EXTERNAL SOURCE */
+
+        .answer-container {
+            max-height: 60vh; /* Maximum height */
+            overflow-y: auto; /* Vertical scroll */
+        }
+
+        .answer-tile {
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .answer-user {
+            font-weight: bold;
+        }
+
+        .new-answer-container {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    
+/* END EXTERNAL SOURCE */

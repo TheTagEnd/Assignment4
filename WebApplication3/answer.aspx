@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="answer.aspx.cs" Inherits="WebApplication3.answer" %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -34,61 +35,25 @@
         <div class="container mt-3">
             <h2 class="text-center mb-3">Answers</h2>
 
-            <p class="mb-3">What is the largest palindrome that can be made from the product of two 2-digit numbers?</p>
+            <asp:Label runat="server" Id="question" class="mb-3">></asp:Label>
 
             <div class="answer-container">
-                <div class="answer-tile">
-                    <h5 class="answer-user">Answer 1 (User ID: 123)</h5>
-                    <p>This is a possible answer to the question. You can add more details here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor quis bibendum auctor. Nullam quis risus eget urna mollis ornare vel quam elementum.</p>
-                    <div class="d-flex justify-content-between mt-3">
-                        <button type="button" class="btn btn-secondary btn-sm">Like (0)</button>
-                        <button type="button" class="btn btn-secondary btn-sm">Dislike (0)</button>
-                    </div>
-                </div>
-
-                 <div class="answer-tile">
-     <h5 class="answer-user">Answer 1 (User ID: 123)</h5>
-     <p>This is a possible answer to the question. You can add more details here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor quis bibendum auctor. Nullam quis risus eget urna mollis ornare vel quam elementum.</p>
-     <div class="d-flex justify-content-between mt-3">
-         <button type="button" class="btn btn-secondary btn-sm">Like (0)</button>
-         <button type="button" class="btn btn-secondary btn-sm">Dislike (0)</button>
-     </div>
- </div>
-
-                 <div class="answer-tile">
-     <h5 class="answer-user">Answer 1 (User ID: 123)</h5>
-     <p>This is a possible answer to the question. You can add more details here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor quis bibendum auctor. Nullam quis risus eget urna mollis ornare vel quam elementum.</p>
-     <div class="d-flex justify-content-between mt-3">
-         <button type="button" class="btn btn-secondary btn-sm">Like (0)</button>
-         <button type="button" class="btn btn-secondary btn-sm">Dislike (0)</button>
-     </div>
- </div>
-
-                                <div class="answer-tile">
-    <h5 class="answer-user">Answer 1 (User ID: 123)</h5>
-    <p>This is a possible answer to the question. You can add more details here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor quis bibendum auctor. Nullam quis risus eget urna mollis ornare vel quam elementum.</p>
-    <div class="d-flex justify-content-between mt-3">
-        <button type="button" class="btn btn-secondary btn-sm">Like (0)</button>
-        <button type="button" class="btn btn-secondary btn-sm">Dislike (0)</button>
-    </div>
-</div>
-                                <div class="answer-tile">
-    <h5 class="answer-user">Answer 1 (User ID: 123)</h5>
-    <p>This is a possible answer to the question. You can add more details here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor quis bibendum auctor. Nullam quis risus eget urna mollis ornare vel quam elementum.</p>
-    <div class="d-flex justify-content-between mt-3">
-        <button type="button" class="btn btn-secondary btn-sm">Like (0)</button>
-        <button type="button" class="btn btn-secondary btn-sm">Dislike (0)</button>
-    </div>
-</div>
-                                <div class="answer-tile">
-    <h5 class="answer-user">Answer 1 (User ID: 123)</h5>
-    <p>This is a possible answer to the question. You can add more details here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor quis bibendum auctor. Nullam quis risus eget urna mollis ornare vel quam elementum.</p>
-    <div class="d-flex justify-content-between mt-3">
-        <button type="button" class="btn btn-secondary btn-sm">Like (0)</button>
-        <button type="button" class="btn btn-secondary btn-sm">Dislike (0)</button>
-    </div>
-</div>
-                <!-- Additional answer tiles can be added here -->
+                <asp:Repeater Id="answersRepeater" runat="server">
+                    <ItemTemplate>
+                        <div class="answer-tile">
+                            <h5 class="answer-user">
+                                User ID: <%# Eval("userId") %>
+                            </h5>
+                            <p>
+                                <%# Eval("Content") %>
+                            </p>
+                            <div class="d-flex justify-content-between mt-3">
+                                <asp:LinkButton runat="server" OnCommand="LikeAnswer" CommandArgument='<%# Eval("Id") %>' class="btn btn-secondary btn-sm"> Like <span runat='server' id="likeCount"><%# Eval("Likes") %></span> </asp:LinkButton>
+                                <asp:LinkButton runat="server" OnCommand="DislikeAnswer" CommandArgument='<%# Eval("Id") %>' class="btn btn-secondary btn-sm"> Dislike <span runat='server' id="dislikeCount"><%# Eval("Dislikes") %></span> </asp:LinkButton>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
             </div>
         </div>
 
@@ -96,18 +61,11 @@
             <div class="container">
                 <h4 class="mb-3">Add your answer:</h4>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="yourAnswer" placeholder="Enter your answer">
-                    <button type="button" class="btn btn-primary" onclick="submitAnswer()">Submit</button>
+                    <asp:TextBox CssClass="form-control" runat="server" id="answerContent" placeholder="Enter your answer"/>
+                    <asp:Button runat="server" CssClass="btn btn-primary" onclick="SubmitAnswer" Text="Submit"/>
                 </div>
             </div>
         </div>
     </form>
-
-    <script>
-        function submitAnswer() {
-            // Implement logic to submit the user's answer using AJAX or server-side methods
-            // Update the page with the new answer using JavaScript or server-side techniques
-        }
-    </script>
 </body>
 </html>

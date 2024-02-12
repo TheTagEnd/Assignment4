@@ -38,7 +38,7 @@
                 <ItemTemplate>
                         <li id= '<%# Eval("Id") %>' class='list-group-item bg-gradient-light text-dark border rounded-3 p-4 mb-3'>
                             <div class='row align-items-center'>
-                                <asp:LinkButton class='col-8 text-decoration-none text-dark' OnClick='GotoAnswer' runat="server">
+                                <asp:LinkButton class='col-8 text-decoration-none text-dark' OnCommand='GotoAnswer' CommandArgument='<%# Eval("Id") %>' runat="server">
                                     <h5 class='mb-1'>
                                             <%# Eval("Content") %>
                                     </h5>

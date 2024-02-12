@@ -240,6 +240,7 @@
     <Compile Include="home_admin.aspx.designer.cs">
       <DependentUpon>home_admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="models\Answer.cs" />
     <Compile Include="models\Question.cs" />
     <Compile Include="models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
