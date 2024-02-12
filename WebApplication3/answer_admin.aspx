@@ -43,52 +43,21 @@
                     <h5 class="answer-user">Answer 1 (User ID: 123)</h5>
                     <p>This is a possible answer to the question. You can add more details here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor quis bibendum auctor. Nullam quis risus eget urna mollis ornare vel quam elementum.</p>
                     <div class="d-flex justify-content-between mt-3">
-                        <button type="button" class="btn btn-primary btn-sm">Like (0)</button>
-                        <button type="button" class="btn btn-secondary btn-sm">Dislike (0)</button>
-                                      <button type="button" class="btn btn-danger btn-sm">
-     <span class="material-symbols-outlined">
-Delete
-</span>
-    </button>
+                        <%-- <asp:LinkButton runat="server" class="btn btn-danger btn-sm" OnCommand='delete_Click' CommandArgument='<%# Eval("Id") %>' Text="Delete">
+    </asp:LinkButton> --%>
+                        <asp:LinkButton runat="server" OnCommand='deleteAnswer_Click' class="btn btn-danger btn-sm" CommandArgument='<%# Eval("Id") %>' Text="Delete">--%>
+                            <span class="material-symbols-outlined">Delete
+                            </span>
+                       </asp:LinkButton>
                     </div>
-                 
+
 
                 </div>
-                                <div class="answer-tile">
-                    <h5 class="answer-user">Answer 1 (User ID: 123)</h5>
-                    <p>This is a possible answer to the question. You can add more details here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor quis bibendum auctor. Nullam quis risus eget urna mollis ornare vel quam elementum.</p>
-                    <div class="d-flex justify-content-between mt-3">
-                        <button type="button" class="btn btn-primary btn-sm">Like (0)</button>
-                        <button type="button" class="btn btn-secondary btn-sm">Dislike (0)</button>
-                                      <button type="button" class="btn btn-danger btn-sm">
-     <span class="material-symbols-outlined">
-Delete
-</span>
-    </button>
-                    </div>
-                 
-
-                </div>
-                <!-- Additional answer tiles can be added here -->
-            </div>
-        </div>
-
-        <div class="new-answer-container">
-            <div class="container">
-                <h4 class="mb-3">Add your answer:</h4>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="yourAnswer" placeholder="Enter your answer">
-                    <button type="button" class="btn btn-primary" onclick="submitAnswer()">Submit</button>
-                </div>
-            </div>
-        </div>
+               
     </form>
 
     <script>
-        function submitAnswer() {
-            // Implement logic to submit the user's answer using AJAX or server-side methods
-            // Update the page with the new answer using JavaScript or server-side techniques
-        }
-    </script>
+
+</script>
 </body>
 </html>

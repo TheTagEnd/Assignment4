@@ -11,7 +11,6 @@ namespace WebApplication3
 {
     public partial class home_admin : System.Web.UI.Page
     {
-        //static SqlConnection connection = null;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -43,12 +42,15 @@ namespace WebApplication3
             Response.Redirect("~/userlist.aspx");
         }
 
-        protected void delete_Click(object sender, CommandEventArgs e)
+        protected void deleteQues_Click(object sender, CommandEventArgs e)
         {
 
             api.Api.DeleteQuestion(Convert.ToInt32(e.CommandArgument));
             Response.Redirect("~/home_admin.aspx?ques=" + e.CommandArgument);
             
         }
+
+        
+
     }
 }

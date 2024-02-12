@@ -190,6 +190,13 @@ namespace WebApplication3.api
             cmd.ExecuteNonQuery();
         }
 
+        public static void DeleteAnswer(int ansId)
+        {
+            string query = String.Format("DELETE FROM Answers WHERE ansId={0};", ansId);
+            var cmd = new SqlCommand(@query, api.Api.connection);
+            cmd.ExecuteNonQuery();
+        }
+
         public static void DeleteQuestion(int quesId)
         {
             DeleteAnswers(quesId);

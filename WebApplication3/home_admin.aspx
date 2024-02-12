@@ -62,7 +62,7 @@
                                     </span>
                                 </label>
                                 
-                                <asp:LinkButton runat="server" class="btn btn-danger btn-sm" OnCommand='delete_Click' CommandArgument='<%# Eval("Id") %>' Text="Delete">
+                                <asp:LinkButton runat="server" class="btn btn-danger btn-sm" OnCommand='deleteQues_Click' CommandArgument='<%# Eval("Id") %>' Text="Delete">
                                     </asp:LinkButton>
 
                             </div>
