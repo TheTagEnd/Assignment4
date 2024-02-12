@@ -7,10 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplication3 {
+namespace WebApplication3
+{
 
 
-    public partial class home {
+    public partial class home
+    {
 
         /// <summary>
         /// Askquestion control.

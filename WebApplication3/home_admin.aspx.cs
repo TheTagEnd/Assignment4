@@ -11,7 +11,7 @@ namespace WebApplication3
 {
     public partial class home_admin : System.Web.UI.Page
     {
-        static SqlConnection connection = null;
+        //static SqlConnection connection = null;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -45,9 +45,10 @@ namespace WebApplication3
 
         protected void delete_Click(object sender, CommandEventArgs e)
         {
-            //string query = String.Format("DELETE Questions WHERE quesID={0};", e.CommandArgument);
-            //var cmd = new SqlCommand(@query, connection);
-            //cmd.ExecuteNonQuery();
+
+            api.Api.DeleteQuestion(Convert.ToInt32(e.CommandArgument));
+            Response.Redirect("~/home_admin.aspx?ques=" + e.CommandArgument);
+            
         }
     }
 }

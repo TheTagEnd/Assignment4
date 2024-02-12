@@ -52,7 +52,7 @@
                                     Likes: 
                                     <span id="likeCount" runat="server">
                                         <%# Eval("Likes") %>
-                                    </span>
+                                    </span>&nbsp;
                                 </label>
 
                                 <label>
@@ -61,8 +61,10 @@
                                         <%# Eval("Dislikes") %>
                                     </span>
                                 </label>
+                                
+                                <asp:LinkButton runat="server" class="btn btn-danger btn-sm" OnCommand='delete_Click' CommandArgument='<%# Eval("Id") %>' Text="Delete">
+                                    </asp:LinkButton>
 
-                                <asp:Button runat="server" class="btn btn-danger btn-sm" OnCommand='delete_Click' CommandArgument='<%# Eval("Id") %>' Text="Delete"/>
                             </div>
                         </div>
                     </li>

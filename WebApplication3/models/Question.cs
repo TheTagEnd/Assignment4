@@ -7,6 +7,7 @@ using System.Web.DynamicData;
 namespace WebApplication3.models {
     public class Question {
         public int UserId { get; set; }
+        
         public int Id { get; set; }
         public string Content { get; set; }
         public int Likes { get; set; }

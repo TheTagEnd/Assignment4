@@ -4,63 +4,75 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using WebApplication3.models;
-namespace WebApplication3.api {
-    public class Api {
-        static SqlConnection connection = null;
+namespace WebApplication3.api
+{
+    public class Api
+    {
+        public static SqlConnection connection = null;
 
-        public static void connect() {
+        public static void connect()
+        {
             string connectionStr = @"Data Source=BHAVYA_GARG\SQLEXPRESS;Database=Forum;Integrated Security=True;";
             connection = new SqlConnection(connectionStr);
             connection.Open();
         }
 
-        public static void disconnect() {
-            if (connection != null) {
+        public static void disconnect()
+        {
+            if (connection != null)
+            {
                 connection.Close();
             }
         }
 
-        public static int SignUp(string username, string password) {
+        public static int SignUp(string username, string password)
+        {
             var user = GetUser(username);
             if (user != null) return -1;
             CreateUser(username, password);
             return 0;
         }
 
-        public static models.User CreateUser(string username, string password) {
+        public static models.User CreateUser(string username, string password)
+        {
             string query = String.Format("INSERT INTO Users (userName, userPassword)" +
                 " VALUES ('{0}', '{1}');", username, password);
             ExecuteQuery(query);
             return GetUser(username);
         }
 
-        public static models.User VerifyUser(string username, string password) {
+        public static models.User VerifyUser(string username, string password)
+        {
             string query = String.Format("select * from Users where userName='{0}' and userPassword='{1}'", username, password);
             var cmd = new SqlCommand(@query, connection);
             var rd = cmd.ExecuteReader();
             models.User user = null;
-            if(rd.Read()) {
-                user =  new models.User( rd["userName"].ToString(), int.Parse(rd["userId"].ToString()));
+            if (rd.Read())
+            {
+                user = new models.User(rd["userName"].ToString(), int.Parse(rd["userId"].ToString()));
             }
             rd.Close();
             return user;
         }
 
-        public static models.User GetUser(string username) {
+        public static models.User GetUser(string username)
+        {
             string query = String.Format("select * from Users where userName='{0}'", username);
             var cmd = new SqlCommand(@query, connection);
             var rd = cmd.ExecuteReader();
             models.User user = null;
-            if(rd.Read()) {
-                user =  new models.User( rd["userName"].ToString(), int.Parse(rd["userId"].ToString()));
+            if (rd.Read())
+            {
+                user = new models.User(rd["userName"].ToString(), int.Parse(rd["userId"].ToString()));
             }
             rd.Close();
             return user;
         }
 
-        public static void IncrementQuesLikes(int quesId) {
+        public static void IncrementQuesLikes(int quesId)
+        {
             string query = String.Format("UPDATE Questions SET likes=likes+1 WHERE quesID={0};", quesId);
-            var cmd = new SqlCommand(@query, connection); 
+            var cmd = new SqlCommand(@query, connection);
             cmd.ExecuteNonQuery();
         }
 
@@ -78,30 +90,35 @@ namespace WebApplication3.api {
             cmd.ExecuteNonQuery();
         }
 
-        public static void IncrementAnsDislikes(int ansId) {
+        public static void IncrementAnsDislikes(int ansId)
+        {
             string query = String.Format("UPDATE Answers SET dislikes=dislikes+1 WHERE ansID={0};", ansId);
             var cmd = new SqlCommand(@query, connection);
             cmd.ExecuteNonQuery();
         }
 
 
-        private static void ExecuteQuery(string query) {
+        private static void ExecuteQuery(string query)
+        {
             var cmd = new SqlCommand(@query, connection);
             cmd.ExecuteNonQuery();
         }
 
-        public static void AddQuestion(int userId, string question) {
+        public static void AddQuestion(int userId, string question)
+        {
             question = question.Trim();
             string query = String.Format("INSERT INTO Questions(userId, quescontent, likes, dislikes) VALUES ({0}, '{1}', {2}, {3});", userId, question, 0, 0);
             ExecuteQuery(query);
-        }   
+        }
 
-        public static List<Question> GetQuestions() {
+        public static List<Question> GetQuestions()
+        {
             List<models.Question> questions = new List<models.Question>();
             string query = "select * from Questions";
-            var cmd = new SqlCommand(@query, connection); 
+            var cmd = new SqlCommand(@query, connection);
             var rd = cmd.ExecuteReader();
-            while (rd.Read()) {
+            while (rd.Read())
+            {
                 questions.Add(GetQuestion(rd));
             }
             rd.Close();
@@ -111,10 +128,10 @@ namespace WebApplication3.api {
         public static models.Question GetQuestionById(int quesId)
         {
             models.Question question = new Question();
-            string query = string.Format("select * from Questions WHERE quesId = {0}",quesId);
+            string query = string.Format("select * from Questions WHERE quesId = {0}", quesId);
             var cmd = new SqlCommand(query, connection);
             var rd = cmd.ExecuteReader();
-            if(rd.Read())
+            if (rd.Read())
             {
                 question = GetQuestion(rd);
             }
@@ -122,7 +139,8 @@ namespace WebApplication3.api {
             return question;
         }
 
-        private static models.Question GetQuestion(SqlDataReader rd) {
+        private static models.Question GetQuestion(SqlDataReader rd)
+        {
             models.Question question = new Question();
             question.Id = int.Parse(rd["quesId"].ToString());
             question.Likes = int.Parse(rd["likes"].ToString());
@@ -132,19 +150,22 @@ namespace WebApplication3.api {
             return question;
         }
 
-        public static List<Answer> GetAnswers(int quesId) {
+        public static List<Answer> GetAnswers(int quesId)
+        {
             var answers = new List<models.Answer>();
             string query = string.Format("select * from Answers where quesId={0}", quesId);
-            var cmd = new SqlCommand(@query, connection); 
+            var cmd = new SqlCommand(@query, connection);
             var rd = cmd.ExecuteReader();
-            while (rd.Read()) {
+            while (rd.Read())
+            {
                 answers.Add(GetAnswer(rd));
             }
             rd.Close();
             return answers;
         }
 
-        private static models.Answer GetAnswer(SqlDataReader rd) {
+        private static models.Answer GetAnswer(SqlDataReader rd)
+        {
             models.Answer answer = new Answer();
             answer.Id = int.Parse(rd["ansId"].ToString());
             answer.Likes = int.Parse(rd["likes"].ToString());
@@ -158,10 +179,23 @@ namespace WebApplication3.api {
         public static void AddAnswer(int userId, string answer, int quesId)
         {
             answer = answer.Trim();
-            string query = String.Format("INSERT INTO Answers(userId, anscontent, likes, dislikes, quesId) VALUES ({0}, '{1}', {2}, {3}, {4});", userId, answer, 0, 0,quesId);
+            string query = String.Format("INSERT INTO Answers(userId, anscontent, likes, dislikes, quesId) VALUES ({0}, '{1}', {2}, {3}, {4});", userId, answer, 0, 0, quesId);
             ExecuteQuery(query);
         }
 
-       
+        public static void DeleteAnswers(int quesId)
+        {
+            string query = String.Format("DELETE FROM Answers WHERE quesID={0};", quesId);
+            var cmd = new SqlCommand(@query, api.Api.connection);
+            cmd.ExecuteNonQuery();
+        }
+
+        public static void DeleteQuestion(int quesId)
+        {
+            DeleteAnswers(quesId);
+            string query = String.Format("DELETE FROM Questions WHERE quesID={0};", quesId);
+            var cmd = new SqlCommand(@query, api.Api.connection);
+            cmd.ExecuteNonQuery();
+        }
     }
 }
